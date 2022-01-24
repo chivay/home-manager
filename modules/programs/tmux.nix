@@ -92,6 +92,7 @@ let
     setw -g clock-mode-style  ${if cfg.clock24 then "24" else "12"}
     set  -s escape-time       ${toString cfg.escapeTime}
     set  -g history-limit     ${toString cfg.historyLimit}
+    set  -g automatic-rename  ${boolToStr cfg.automaticRename}
   '';
 
   configPlugins = {
@@ -131,6 +132,12 @@ in {
           Resize the window to the size of the smallest session for
           which it is the current window.
         '';
+      };
+
+      automaticRename = mkOption {
+        default = false;
+        type = types.bool;
+        description = "Rename windows automatically using <option>programs.tmux.automaticRenameFormat</option>";
       };
 
       baseIndex = mkOption {
