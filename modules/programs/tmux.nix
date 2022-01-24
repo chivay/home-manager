@@ -92,6 +92,7 @@ let
     setw -g clock-mode-style  ${if cfg.clock24 then "24" else "12"}
     set  -s escape-time       ${toString cfg.escapeTime}
     set  -g history-limit     ${toString cfg.historyLimit}
+    set  -g renumber-windows  ${boolToStr cfg.renumberWindows}
   '';
 
   configPlugins = {
@@ -213,6 +214,12 @@ in {
         defaultText = literalExpression "pkgs.tmux";
         example = literalExpression "pkgs.tmux";
         description = "The tmux package to install";
+      };
+
+      renumberWindows = mkOption {
+        default = false;
+        type = types.bool;
+        description = "When a window is closed, automatically renumber the other windows";
       };
 
       reverseSplit = mkOption {
